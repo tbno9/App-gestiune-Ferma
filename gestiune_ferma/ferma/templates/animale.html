@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div id="page-header" class="d-flex justify-content-between align-items-center">
+        <h1>Animale</h1>
+        {% if rol == 'admin' %}
+        <a href="{% url 'adauga_animal' %}" class="btn-save text-decoration-none">
+            + Adauga Animal Nou
+        </a>
+        {% endif %}
+    </div>
+
+    {% for s in specii %}
+    <div class="specie-section">
+        <h3 class="specie-title">{{s.nume}}</h3>
+        <div class="table-container">
+            <table class="table-animale">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Crotaliu</th>
+                        <th>Data nasterii</th>
+                        <th>Sex</th>
+                        <th>Sanatate</th>
+                        <th>Status</th>
+                        <th>Tratamente</th>
+                        <th>Insamantari</th>
+                        <th>Actiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in animale %}
+                    {% if a.id_specie_id == s.id_specie %}
+                    <tr>
+                        <td>{{a.id_animal}}</td>
+                        <td><strong>{{a.crotaliu}}</strong></td>
+                        <td>{{a.data_nastere}}</td>
+                        <td>{{a.sex}}</td>
+                        <td><span class="badge-sanatate">{{a.sanatate}}</span></td>
+                        <td>{{a.status}}</td>
+                        <td >
+                            {% for t in tratamente %}
+                                {% if t.id_animal_id == a.id_animal %}
+                                    <div><strong>{{ t.data|date:"d.m" }}:</strong> {{ t.medicament }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td >
+                            {% for i in insamantari %}
+                                {% if i.id_animal_id == a.id_animal %}
+                                    <div>{{ i.data_ins|date:"d.m.Y" }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="{% url 'modifica_animal' a.id_animal %}" class="btn-modifica">Modifica</a>
+                                
+                                {% if rol == 'admin' %}
+                                <a href="{% url 'sterge_animal' a.id_animal %}" 
+                                   class="btn-sterge" 
+                                   onclick="return confirm('Sigur stergi acest animal?')">Sterge</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

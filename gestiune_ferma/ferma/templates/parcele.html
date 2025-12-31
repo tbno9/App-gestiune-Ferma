@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div id="page-header">
+        <h1>Parcele</h1>
+    </div>
+
+    {% for p in parcele %}
+    <div class="specie-section"> 
+        <h3 class="specie-title">{{p.locatie}}</h3>
+        <div class="table-container">
+            <table class="table-animale">
+                <thead>
+                    <tr>
+                        <th>ID parcela</th>
+                        <th>Suprafata</th>
+                        <th>Tip cultura</th>
+                        <th>Data cultivarii</th>
+                        <th>Cantitate recoltata</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for c in culturi %}
+                        {% if c.id_parcela_id == p.id_parcela%}
+                            <tr>
+                                <td>{{p.id_parcela}}</td>
+                                <td>{{p.suprafata}}</td>
+                                <td>{{c.tip}}</td>
+                                <td>{{c.data}}</td>
+                                <td>{{c.cantitate}}</td>
+                            </tr>
+                            
+                        {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+    {% empty %}
+    <p class="empty-message">Nu exista parcele inregistrate</p>
+    {% endfor %}
+</div>
+{% endblock %}

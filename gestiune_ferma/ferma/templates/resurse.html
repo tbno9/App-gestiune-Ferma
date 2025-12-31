@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div id="page-header">
+        <h1>Resurse</h1>
+    </div>
+
+    {% for r in resurse %}
+    
+        <div class="table-container">
+            <table class="table-animale">
+                <thead>
+                    <tr>
+                        <th>ID resursa</th>
+                        <th>Tip</th>
+                        <th>Cantitate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{r.id_resursa}}</td>
+                        <td>{{r.tip}}</td>
+                        <td>{{r.cantitate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        <br>
+        
+    {% empty %}
+    <p class="empty-message">Nu exista resurse inregistrate</p>
+    {% endfor %}
+</div>
+{% endblock %}
+

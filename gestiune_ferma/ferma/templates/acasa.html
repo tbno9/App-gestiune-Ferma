@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div id="welcome">
+        <h1>Bine ai venit, {{nume}} {{prenume}}</h1>
+        <h3>- {{rol}} -</h3>
+    </div>
+
+    <div id="animale">
+        <h3>Animale</h3>
+        
+        <div>
+            {% for specie in specii %}
+            <div>
+                <p><strong>{{ specie.nume }}</strong></p>
+                <p>{{ specie.numar_animale }}</p>
+            </div>
+            {% empty %}
+            <p class="empty-message">Nu exista animale inregistrate</p>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'animale' %}" class="btn btn-lg btn-outline-success" role="button">Vezi animale</a>
+    </div>
+
+    <div id="parcele">
+        <h3>Parcele</h3>
+        
+        <div>
+            {% for p in parcele %}
+            <div>
+                <p><strong>{{ p.locatie }}</strong></p>
+                <p>{{ p.suprafata }} ha</p>
+            </div>
+            {% empty %}
+            <p class="empty-message">Nu exista parcele inregistrate</p>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'parcele' %}" class="btn btn-lg btn-outline-success" role="button">Vezi parcele</a>
+    </div>
+
+    <div id="resurse">
+        <h3>Resurse</h3>
+        
+        <div>
+            {% for res in resurse %}
+            <div>
+                <p><strong>{{ res.tip }}</strong></p>
+                <p>{{ res.cantitate }} kg</p>
+            </div>
+            {% empty %}
+            <p class="empty-message">Nu exista resurse inregistrate</p>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'resurse' %}" class="btn btn-lg btn-outline-success" role="button">Vezi resurse</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div id="page-header">
+        <h1>Modifica: {{ animal.crotaliu }}</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-card" style="border-top-color: #7a5c3d;">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="form-section-title">Stare Sanatate</div>
+                    <div class="mb-4">
+                        <label class="form-label">Status medical actual</label>
+                        <input type="text" name="sanatate" class="form-control" value="{{ animal.sanatate }}">
+                    </div>
+
+                    <div class="form-section-title">Tratament Nou</div>
+                    <div class="row mb-4">
+                        <div class="col-md-7">
+                            <label class="form-label">Medicament</label>
+                            <input type="text" name="medicament" class="form-control" placeholder="Denumire medicament">
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label">Data</label>
+                            <input type="date" name="data_tratament" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Insamantare</div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Data Insamantare</label>
+                            <input type="date" name="data_ins" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Data Fatare (Est.)</label>
+                            <input type="date" name="data_fatare" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Status Animal</div>
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="statusActiv" value="activ">
+                            <label class="form-check-label" for="statusActiv">Activ</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="statusVandut" value="vandut">
+                            <label class="form-check-label" for="statusVandut">Vandut</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="statusMort" value="mort">
+                            <label class="form-check-label" for="statusMort">Mort</label>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{% url 'animale' %}" class="btn-cancel text-decoration-none">Inapoi</a>
+                        <button type="submit" class="btn-save">Salveaza Modificarile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

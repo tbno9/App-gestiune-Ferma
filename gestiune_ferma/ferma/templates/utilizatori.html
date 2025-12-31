@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div id="page-header">
+        <h1>Gestionare Utilizatori</h1>
+    </div>
+
+    <div class="specie-section">
+        <h3 class="specie-title">Lista Personal</h3>
+        
+        <div class="table-container shadow-sm">
+            <table class="table-animale">
+                <thead>
+                    <tr>
+                        <th>Nume si Prenume</th>
+                        <th>CNP</th>
+                        <th>Rol</th>
+                        <th>Status cont</th>
+                        <th>Actiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for u in utilizatori %}
+                    <tr class="user-row">
+                        <td><strong>{{ u.nume }} {{ u.prenume }}</strong></td>
+                        <td>{{ u.cnp }}</td>
+                        <td>
+                            {% if u.rol == 'admin' %}
+                                <span class="badge-rol badge-admin">Administrator</span>
+                            {% else %}
+                                <span class="badge-rol badge-angajat">Angajat</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="status-indicator">
+                                {% if u.stare_cont == 'activ' %}
+                                    <span class="dot-activ"></span> Activ
+                                {% else %}
+                                    <span class="dot-inactiv"></span> Inactiv
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group-user">
+                                <a href="#" class="btn-modifica">Modifica</a>
+                                
+                               {% if u.rol != 'admin' %}  <!--  ca sa nu se poata sterge adminul -->
+                                    <!-- <a href="#" class="btn-sterge" onclick="return confirm('Sigur stergi acest utilizator?')">Sterge</a> -->
+                                    <a href="{% url 'sterge_utilizator' u.id_utilizator %}" class="btn-sterge" onclick="return confirm('Sigur stergi acest utilizator?')">Sterge</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-message">Nu exista utilizatori inregistrati.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
